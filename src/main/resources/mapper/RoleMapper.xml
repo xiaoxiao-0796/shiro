@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofei.test.mapper.RoleMapper">
+    <resultMap id="Base_RESULT_MAP" type="com.xiaofei.test.model.RoleDO">
+        <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR"/>
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
+        <result column="ROLE_LAYER" property="roleLayer" jdbcType="VARCHAR"/>
+        <result column="ROLE_SEQ" property="roleSeq" jdbcType="VARCHAR"/>
+        <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR"/>
+        <result column="STAT" property="stat" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryRoleNameByStaffCode" resultType="java.lang.String">
+        SELECT r.ROLE_NAME
+        FROM t_sym_role r,t_sym_staff s,t_sym_staffrole sr
+        WHERE  s.staff_code = #{staffCode,jdbcType=VARCHAR} AND s.staff_id=sr.staff_id
+        AND sr.role_id = r.role_id
+    </select>
+</mapper>

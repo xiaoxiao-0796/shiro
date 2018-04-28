@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaofei.test.mapper.PrivMapper">
+    <resultMap id="Base_RESULT_MAP" type="com.xiaofei.test.model.PrivDO">
+        <result column="PRIV_ID" property="privId" jdbcType="VARCHAR"/>
+        <result column="PRIV_NAME" property="privName" jdbcType="VARCHAR"/>
+        <result column="PRIV_TYPE" property="privType" jdbcType="VARCHAR"/>
+        <result column="PARENT_PRIV" property="parentPriv" jdbcType="VARCHAR"/>
+        <result column="SHOW_SEQ" property="showSeq" jdbcType="VARCHAR"/>
+        <result column="PRIV_URL" property="privUrl" jdbcType="VARCHAR"/>
+        <result column="OPER_MODE" property="operMode" jdbcType="VARCHAR"/>
+        <result column="PRIV_DESC" property="pricDesc" jdbcType="VARCHAR"/>
+        <result column="STAT" property="stat" jdbcType="VARCHAR"/>
+        <result column="PRIV_IMG" property="privImg" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="queryPrivUrlByStaffCode" resultType="java.lang.String">
+        SELECT p.PRIV_URL
+        FROM t_sym_priv p,t_sym_rolepriv rp ,t_sym_role r,t_sym_staff s,t_sym_staffrole sr
+        WHERE  s.staff_code = #{staffCode,jdbcType=VARCHAR} AND s.staff_id=sr.staff_id
+        AND sr.role_id = r.role_id AND rp.role_id = r.role_id AND p.priv_id= rp.priv_id
+        AND priv_url is NOT NULL
+    </select>
+</mapper>
